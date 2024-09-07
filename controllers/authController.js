@@ -18,8 +18,8 @@ const userAuthentication = async (req, res, next) => {
 
 const handleAuth = async (req, res) => {
   const authResponse = await userAuthentication(req, res);
-  console.debug('Auth Response: ', authResponse.data);
-  return res.status(authResponse.status).json(authResponse.data);
+  console.debug('handleAuth::Auth Response: ', authResponse.data);
+  return authResponse
 };
 
 module.exports = { handleAuth };
