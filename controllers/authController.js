@@ -1,7 +1,7 @@
 const { envToken, successAuthResponse, authError400, authError401 } = require('../utils');
 
 const userAuthentication = async (req, res, next) => {
-  const token = req?.headers['x-access-token'] || '';
+  const token = (req && req.headers && req.headers['x-access-token']) || '';
 
   if (!token) {
     return authError400;
