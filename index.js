@@ -9,6 +9,29 @@ const PORT = process.env.PORT || 8080;
 
 const env = process.env.NODE_ENV || 'development';
 
+// const passport = require('passport');
+
+// // Passport configuration
+// passport.use(new JiraStrategy({
+//   consumerKey: process.env.JIRA_CONSUMER_KEY,
+//   consumerSecret: process.env.JIRA_CONSUMER_SECRET,
+//   callbackURL: "http://localhost:8080/auth/jiratick/callback"
+// }, (token, tokenSecret, profile, done) => {
+//   // Here you would find or create a user in your database
+//   return done(null, profile);
+// }));
+
+// passport.serializeUser((user, done) => {
+//   done(null, user);
+// });
+
+// passport.deserializeUser((obj, done) => {
+//   done(null, obj);
+// });
+
+// app.use(passport.initialize());
+// app.use(passport.session());
+
 //TODO: Implement logger
 // app.use(logger)
 
@@ -32,14 +55,27 @@ const env = process.env.NODE_ENV || 'development';
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
 
+// app.get('/auth/jiratick', passport.authenticate('jira'));
+
+// app.get('/auth/jiratick/callback', 
+//   passport.authenticate('jira', { failureRedirect: '/' }),
+//   (req, res) => {
+//     // Successful authentication, redirect home.
+//     res.redirect('/');
+//   });
+
 app.get('/test', (req, res) => {
   // Check To See If The Environment Is Development
   if (env === 'development') {
-    res.status(200).send('You are in development mode');
+    const jsonResponse = 'You are in development mode'
+    res.status(200).setHeader('Content-Type','application/json').send(jsonResponse);
   } else {
-    res.status(200).send('You are in production mode');
+    const jsonResponse = 'You are in production mode'
+    res.status(200).setHeader('Content-Type','application/json').send(jsonResponse);
   }
 });
+
+
 
 // app.get('*', (req, res) => {
 //   res.status(404).send('Not Found');
